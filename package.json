@@ -1,0 +1,310 @@
+{
+    "name": "tasks-context",
+    "displayName": "Tasks context",
+    "description": "Manage tasks with context",
+    "version": "1.0.0",
+    "publisher": "jsaulou",
+    "icon": "media/icon.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jsaulou/vscode-tasks-context.git"
+    },
+    "engines": {
+        "vscode": "^1.35.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onView:tasks-context"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "tasks-context.reloadTasks",
+                "title": "%command.reloadTasks.title%",
+                "icon": {
+                    "light": "media/light/refresh.svg",
+                    "dark": "media/dark/refresh.svg"
+                },
+                "enablement": "workspaceFolderCount == 1"
+            },
+            {
+                "command": "tasks-context.newTask",
+                "title": "%command.newTask.title%",
+                "icon": {
+                    "light": "media/light/new-task.svg",
+                    "dark": "media/dark/new-task.svg"
+                },
+                "enablement": "workspaceFolderCount == 1"
+            },
+            {
+                "command": "tasks-context.openAllFiles",
+                "title": "%command.openAllFiles.title%",
+                "icon": {
+                    "light": "media/light/open-all.svg",
+                    "dark": "media/dark/open-all.svg"
+                },
+                "enablement": "workspaceFolderCount == 1"
+            },
+            {
+                "command": "tasks-context.deleteTask",
+                "title": "%command.deleteTask.title%",
+                "enablement": "workspaceFolderCount == 1"
+            },
+            {
+                "command": "tasks-context.removeTaskFile",
+                "title": "%command.removeTaskFile.title%",
+                "icon": {
+                    "light": "media/light/remove-file.svg",
+                    "dark": "media/dark/remove-file.svg"
+                },
+                "enablement": "workspaceFolderCount == 1"
+            },
+            {
+                "command": "tasks-context.addFileToActiveTask",
+                "title": "%command.addFileToActiveTask.title%",
+                "icon": {
+                    "light": "media/light/add-file-to-task.svg",
+                    "dark": "media/dark/add-file-to-task.svg"
+                },
+                "enablement": "workspaceFolderCount == 1"
+            },
+            {
+                "command": "tasks-context.activateTask",
+                "title": "%command.activateTask.title%",
+                "icon": {
+                    "light": "media/light/activate-task.svg",
+                    "dark": "media/dark/activate-task.svg"
+                },
+                "enablement": "workspaceFolderCount == 1"
+            },
+            {
+                "command": "tasks-context.deactivateTask",
+                "title": "%command.deactivateTask.title%",
+                "icon": {
+                    "light": "media/light/deactivate-task.svg",
+                    "dark": "media/dark/deactivate-task.svg"
+                },
+                "enablement": "workspaceFolderCount == 1"
+            },
+            {
+                "command": "tasks-context.renameTask",
+                "title": "%command.renameTask.title%",
+                "enablement": "workspaceFolderCount == 1"
+            },
+            {
+                "command": "tasks-context.markTaskComplete",
+                "title": "%command.markTaskComplete.title%",
+                "enablement": "workspaceFolderCount == 1"
+            },
+            {
+                "command": "tasks-context.markTaskIncomplete",
+                "title": "%command.markTaskIncomplete.title%",
+                "enablement": "workspaceFolderCount == 1"
+            },
+            {
+                "command": "tasks-context.sortTasksByName",
+                "title": "%command.sortTasksByName.title%",
+                "enablement": "workspaceFolderCount == 1"
+            },
+            {
+                "command": "tasks-context.sortTasksByCreationDate",
+                "title": "%command.sortTasksByCreationDate.title%",
+                "enablement": "workspaceFolderCount == 1"
+            },
+            {
+                "command": "tasks-context.hideCompletedTasks",
+                "title": "%command.hideCompletedTasks.title%",
+                "icon": {
+                    "light": "media/light/hide-completed-tasks.svg",
+                    "dark": "media/dark/hide-completed-tasks.svg"
+                },
+                "enablement": "workspaceFolderCount == 1"
+            },
+            {
+                "command": "tasks-context.showCompletedTasks",
+                "title": "%command.showCompletedTasks.title%",
+                "icon": {
+                    "light": "media/light/show-completed-tasks.svg",
+                    "dark": "media/dark/show-completed-tasks.svg"
+                },
+                "enablement": "workspaceFolderCount == 1"
+            }
+        ],
+        "views": {
+            "explorer": [
+                {
+                    "id": "tasks-context",
+                    "name": "%view.tasks.name%"
+                }
+            ]
+        },
+        "menus": {
+            "explorer/context": [
+                {
+                    "when": "!explorerResourceIsFolder && config.tasks-context.showAddFileToActiveTaskInExplorerContext",
+                    "command": "tasks-context.addFileToActiveTask",
+                    "group": "navigation"
+                }
+            ],
+            "view/title": [
+                {
+                    "command": "tasks-context.reloadTasks",
+                    "when": "view == tasks-context",
+                    "group": "navigation"
+                },
+                {
+                    "command": "tasks-context.newTask",
+                    "when": "view == tasks-context",
+                    "group": "navigation"
+                },
+                {
+                    "command": "tasks-context.showCompletedTasks",
+                    "when": "view == tasks-context && config.tasks-context.hideCompletedTasks",
+                    "group": "navigation"
+                },
+                {
+                    "command": "tasks-context.hideCompletedTasks",
+                    "when": "view == tasks-context && !config.tasks-context.hideCompletedTasks",
+                    "group": "navigation"
+                },
+                {
+                    "command": "tasks-context.sortTasksByName",
+                    "when": "view == tasks-context"
+                },
+                {
+                    "command": "tasks-context.sortTasksByCreationDate",
+                    "when": "view == tasks-context"
+                }
+            ],
+            "view/item/context": [
+                {
+                    "command": "tasks-context.openAllFiles",
+                    "when": "view == tasks-context && viewItem =~ /task:.*/",
+                    "group": "inline"
+                },
+                {
+                    "command": "tasks-context.activateTask",
+                    "when": "view == tasks-context && viewItem =~ /task:inactive.*/",
+                    "group": "inline"
+                },
+                {
+                    "command": "tasks-context.deactivateTask",
+                    "when": "view == tasks-context && viewItem =~ /task:active.*/",
+                    "group": "inline"
+                },
+                {
+                    "command": "tasks-context.renameTask",
+                    "when": "view == tasks-context && viewItem =~ /task:.*/"
+                },
+                {
+                    "command": "tasks-context.deleteTask",
+                    "when": "view == tasks-context && viewItem =~ /task:.*/"
+                },
+                {
+                    "command": "tasks-context.removeTaskFile",
+                    "when": "view == tasks-context && viewItem == file",
+                    "group": "inline"
+                },
+                {
+                    "command": "tasks-context.markTaskComplete",
+                    "when": "view == tasks-context && viewItem =~ /task:[^:]*:incomplete/"
+                },
+                {
+                    "command": "tasks-context.markTaskIncomplete",
+                    "when": "view == tasks-context && viewItem =~ /task:[^:]*:complete/"
+                }
+            ],
+            "editor/title": [
+                {
+                    "command": "tasks-context.addFileToActiveTask",
+                    "group": "navigation"
+                }
+            ],
+            "commandPalette": [
+                {
+                    "command": "tasks-context.openAllFiles",
+                    "when": "false"
+                },
+                {
+                    "command": "tasks-context.deleteTask",
+                    "when": "false"
+                },
+                {
+                    "command": "tasks-context.removeTaskFile",
+                    "when": "false"
+                },
+                {
+                    "command": "tasks-context.activateTask",
+                    "when": "false"
+                },
+                {
+                    "command": "tasks-context.renameTask",
+                    "when": "false"
+                },
+                {
+                    "command": "tasks-context.markTaskComplete",
+                    "when": "false"
+                },
+                {
+                    "command": "tasks-context.markTaskIncomplete",
+                    "when": "false"
+                }
+            ]
+        },
+        "configuration": {
+            "type": "object",
+            "title": "Tasks context",
+            "properties": {
+                "tasks-context.autoAddFileToActiveTask": {
+                    "type": "string",
+                    "enum": [
+                        "never",
+                        "opened",
+                        "modified"
+                    ],
+                    "enumDescriptions": [
+                        "%property.autoAddFileToActiveTask.enum.never.description%",
+                        "%property.autoAddFileToActiveTask.enum.opened.description%",
+                        "%property.autoAddFileToActiveTask.enum.modified.description%"
+                    ],
+                    "default": "never",
+                    "description": "%property.autoAddFileToActiveTask.description%",
+                    "scope": "window"
+                },
+                "tasks-context.showAddFileToActiveTaskInExplorerContext": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%property.showAddFileToActiveTaskInExplorerContext.description%",
+                    "scope": "window"
+                },
+                "tasks-context.hideCompletedTasks": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%property.hideCompletedTasks.description%",
+                    "scope": "window"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "@types/mocha": "^2.2.42",
+        "@types/node": "^7.0.43",
+        "tslint": "^5.8.0",
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6",
+        "vscode-nls-dev": "^3.2.6"
+    },
+    "dependencies": {
+        "vscode-nls": "^4.1.1"
+    }
+}
